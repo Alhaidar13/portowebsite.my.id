@@ -8,9 +8,10 @@ export default function WhatsAppFab() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp (opens in a new tab)"
-      className="fixed bottom-5 right-5 z-30 grid h-14 w-14 place-items-center rounded-full bg-accent text-onaccent shadow-xl shadow-fg/20 transition hover:-translate-y-1 hover:scale-105"
+      className="group fixed bottom-5 right-5 z-30 grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-[#25D366]/40 transition hover:-translate-y-1 hover:scale-110"
     >
-      <MessageCircle size={24} aria-hidden="true" />
+      <span className="absolute inset-0 animate-ping2 rounded-full bg-[#25D366]/60" aria-hidden="true" />
+      <MessageCircle size={26} className="relative" aria-hidden="true" />
     </a>
   )
 }

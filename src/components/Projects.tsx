@@ -3,6 +3,7 @@ import { PROJECTS, type Project } from '../data/site'
 import ProjectCard from './ProjectCard'
 import ProjectModal from './ProjectModal'
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
 
 export default function Projects() {
   const [selected, setSelected] = useState<Project | null>(null)
@@ -13,15 +14,12 @@ export default function Projects() {
   return (
     <section id="projects" aria-labelledby="projects-title" className="relative border-t hairline bg-fg/[0.025] py-24 lg:py-36">
       <div className="container-x">
-        <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="max-w-3xl">
-            <p className="eyebrow">Projects</p>
-            <h2 id="projects-title" className="section-title mt-4 lg:text-7xl">
-              Selected Works.
-            </h2>
-          </div>
-          <p className="lead max-w-md">A collection of digital experiences I&apos;ve designed and developed.</p>
-        </Reveal>
+        <SectionHeading
+          id="projects-title"
+          eyebrow="Projects"
+          title="Selected Works."
+          subtitle="A collection of digital experiences I've designed and developed."
+        />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-2 lg:gap-8">
           <Reveal className="lg:col-span-2">

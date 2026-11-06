@@ -1,6 +1,7 @@
 import { Briefcase, Building2, Rocket, ShoppingCart, UserRound, type LucideIcon } from 'lucide-react'
 import { SERVICES, type ServiceIcon } from '../data/site'
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
 
 const ICONS: Record<ServiceIcon, LucideIcon> = {
   briefcase: Briefcase,
@@ -14,14 +15,9 @@ export default function Services() {
   return (
     <section id="services" aria-labelledby="services-title" className="border-t hairline py-24 lg:py-32">
       <div className="container-x">
-        <Reveal className="max-w-3xl">
-          <p className="eyebrow">Services</p>
-          <h2 id="services-title" className="section-title mt-4">
-            What I Can Do For Your Business.
-          </h2>
-        </Reveal>
+        <SectionHeading id="services-title" eyebrow="Services" title="What I Can Do For Your Business." />
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        <ul className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
           {SERVICES.map((s, i) => {
             const Icon = ICONS[s.icon]
             // 3 on top row, 2 wider on bottom row (desktop)
@@ -29,7 +25,7 @@ export default function Services() {
             return (
               <li key={s.title} className={span}>
                 <Reveal delay={i * 70} className="h-full">
-                  <article className="card group relative h-full overflow-hidden p-7 hover:-translate-y-1.5 hover:border-accent/60 hover:shadow-xl hover:shadow-fg/5 dark:hover:shadow-accent/10">
+                  <article className="card spotlight group relative h-full overflow-hidden p-7 text-center sm:text-left hover:-translate-y-1.5 hover:border-accent/60 hover:shadow-xl hover:shadow-fg/5 dark:hover:shadow-accent/10">
                     <span className="font-display absolute right-6 top-5 text-5xl font-bold text-fg/[0.05] transition-colors duration-300 group-hover:text-accent/20">
                       {String(i + 1).padStart(2, '0')}
                     </span>

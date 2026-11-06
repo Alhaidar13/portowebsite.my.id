@@ -1,7 +1,20 @@
-# Web Developer Portfolio
+# MyPoRtoFoLio — Muhammad Fikri Al Haidar
 
 Portfolio premium untuk web developer freelance (UMKM, startup, bisnis lokal, personal brand).
 Dibangun dengan **React + TypeScript + Tailwind CSS**, backend form kontak dengan **Cloudflare Pages Functions + D1**.
+
+## Pembaruan terbaru
+- Brand diganti menjadi **MyPoRtoFoLio**; judul tiap section kini besar dan di tengah (komponen `SectionHeading`)
+- About: nama **Muhammad Fikri Al Haidar**, foto (`public/profile.svg` - ganti dengan foto asli, lihat bawah), teks "A Little About Me" versi Indonesia
+- Skills & Technologies berupa **logo** (HTML, CSS, JavaScript, TypeScript, React, Tailwind, Vite, Git, GitHub, **Figma**) di `public/tech/`
+- Email: `fikrialhaidar17@gmail.com`; WhatsApp: `6287797890306` dengan **template pesan otomatis** (edit di `SITE.whatsappMessage`)
+- Form kontak responsive, dikirim **langsung ke email** lewat FormSubmit (format tabel) + salinan ke D1 (opsional)
+- Tampilan lebih hidup: gradient teks animasi, blob bergerak, typewriter peran, progress bar scroll, spotlight kartu, count-up angka, tombol WhatsApp berdenyut
+
+> **Aktivasi email (wajib, sekali saja):** FormSubmit mengirim email konfirmasi ke fikrialhaidar17@gmail.com saat form pertama kali dikirim. Kirim 1 pesan uji dari website, buka email, lalu klik **Activate**. Setelah itu semua pesan masuk ke inbox.
+> Cek juga folder Spam.
+
+> **Ganti foto:** taruh foto di `public/profile.jpg`, lalu ubah `photo: '/profile.jpg'` di `src/data/site.ts`.
 
 ## Fitur yang sudah selesai
 - Navbar sticky, menu hamburger di mobile, penanda section aktif, tombol "Let's Talk"

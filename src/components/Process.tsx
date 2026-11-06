@@ -1,16 +1,12 @@
 import { PROCESS } from '../data/site'
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
 
 export default function Process() {
   return (
     <section id="process" aria-labelledby="process-title" className="border-t hairline py-24 lg:py-32">
       <div className="container-x">
-        <Reveal className="max-w-3xl">
-          <p className="eyebrow">Work Process</p>
-          <h2 id="process-title" className="section-title mt-4">
-            How I Bring Ideas to Life.
-          </h2>
-        </Reveal>
+        <SectionHeading id="process-title" eyebrow="Work Process" title="How I Bring Ideas to Life." />
 
         <ol className="relative mt-16 grid gap-10 lg:grid-cols-4 lg:gap-8">
           {/* horizontal rail (desktop) */}

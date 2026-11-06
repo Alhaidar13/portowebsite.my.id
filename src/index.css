@@ -41,7 +41,16 @@
 @layer components {
   .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
   .eyebrow { @apply font-sans text-xs font-medium uppercase tracking-[0.22em] text-fg/60 dark:text-accent; }
-  .section-title { @apply font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl; }
+  .section-title { @apply font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl; }
+  .gradient-text {
+    background-image: linear-gradient(90deg, #6366f1, #38bdf8, #f472b6, #6366f1);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+  .blob { @apply pointer-events-none absolute rounded-full blur-3xl animate-blob; }
   .lead { @apply font-sans text-base leading-relaxed text-fg/70 sm:text-lg; }
   .hairline { @apply border-fg/10; }
   .card {
@@ -94,3 +103,25 @@ body.modal-open { overflow: hidden; }
 .theme-transition, .theme-transition *, .theme-transition *::before, .theme-transition *::after {
   transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease, stroke .4s ease, box-shadow .4s ease !important;
 }
+
+/* Top scroll-progress bar */
+.scroll-progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 70; transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, #6366f1, #38bdf8, #f472b6); }
+
+/* Cursor-following spotlight on cards */
+.spotlight { position: relative; }
+.spotlight::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity .3s ease;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--c-accent) / .14), transparent 60%);
+}
+.spotlight:hover::before { opacity: 1; }
+
+/* Infinite tech marquee */
+.marquee-mask { mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
+.marquee-track:hover { animation-play-state: paused; }
+
+/* Typing caret */
+.caret::after { content: ''; display: inline-block; width: .08em; height: .9em; margin-left: .08em; vertical-align: -.08em; background: currentColor; animation: caret 1s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) { .scroll-progress { display: none; } .gradient-text { animation: none; } }

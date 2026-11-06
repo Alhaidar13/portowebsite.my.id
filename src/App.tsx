@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { SITE } from './data/site'
+import { useSpotlight } from './hooks/useSpotlight'
+import ScrollProgress from './components/ScrollProgress'
 import { useTheme } from './hooks/useTheme'
 import About from './components/About'
 import Contact from './components/Contact'
@@ -13,9 +15,10 @@ import WhatsAppFab from './components/WhatsAppFab'
 
 export default function App() {
   const { theme, toggle } = useTheme()
+  useSpotlight()
 
   useEffect(() => {
-    document.title = `${SITE.name} — Independent Web Developer`
+    document.title = `${SITE.name} — Web Developer & UI/UX Designer`
   }, [])
 
   return (
@@ -26,6 +29,7 @@ export default function App() {
       >
         Skip to content
       </a>
+      <ScrollProgress />
       <Navbar theme={theme} onToggleTheme={toggle} />
       <main id="main">
         <Hero />

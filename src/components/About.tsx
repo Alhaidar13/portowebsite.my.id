@@ -1,83 +1,121 @@
-import { Layers, UserRound } from 'lucide-react'
-import { TECH_STACK } from '../data/site'
+import { GraduationCap, Layers, Palette, Code2 } from 'lucide-react'
+import { ABOUT_PARAGRAPHS, SITE, TECH_STACK } from '../data/site'
 import Reveal from './Reveal'
+import SectionHeading from './SectionHeading'
+import CountUp from './CountUp'
 
 export default function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="border-t hairline py-24 lg:py-32">
-      <div className="container-x grid items-start gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <Reveal>
-          {/* Replace the placeholder block with <img src="/profile.webp" alt="Portrait of …" /> */}
-          <figure className="relative mx-auto max-w-sm lg:mx-0">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-fg/12 bg-fg/[0.04]">
-              <div className="absolute inset-0 grid place-items-center">
-                <div className="flex flex-col items-center gap-3 text-fg/35">
-                  <UserRound size={72} strokeWidth={1.1} aria-hidden="true" />
-                  <span className="text-xs uppercase tracking-[0.2em]">Profile photo</span>
-                </div>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-fg/[0.07] to-transparent" aria-hidden="true" />
-            </div>
-            <figcaption className="absolute -bottom-5 -right-3 rounded-2xl border border-fg/12 bg-base px-5 py-4 shadow-xl shadow-fg/5 sm:-right-6">
-              <p className="font-display text-3xl font-bold leading-none">100%</p>
-              <p className="mt-1.5 max-w-[10rem] text-xs leading-snug text-fg/60">Hand-coded, responsive, and built around your goals.</p>
-            </figcaption>
-          </figure>
-        </Reveal>
+    <section id="about" aria-labelledby="about-title" className="relative overflow-hidden border-t hairline py-24 lg:py-32">
+      <div className="blob -left-24 top-20 h-72 w-72 bg-indigo-500/20" aria-hidden="true" />
+      <div className="blob -right-24 bottom-10 h-72 w-72 bg-sky-400/20 [animation-delay:-6s]" aria-hidden="true" />
 
-        <div>
+      <div className="container-x relative">
+        <SectionHeading id="about-title" eyebrow="About Me" title="A Little About Me." />
+
+        <div className="mt-16 grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal>
-            <p className="eyebrow">About</p>
-            <h2 id="about-title" className="section-title mt-4">
-              A Little About Me.
-            </h2>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="lead mt-6 max-w-2xl">
-              I&apos;m an independent web developer passionate about creating clean, functional, and user-friendly
-              websites. I focus on helping businesses build their online presence through thoughtful design and modern web
-              technologies.
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-fg/60">
-              Working directly with me means a single point of contact, clear communication, and a website shaped around
-              your business — from the first conversation to launch day.
-            </p>
+            <figure className="relative mx-auto max-w-sm">
+              <div className="absolute -inset-3 rounded-[2.4rem] bg-gradient-to-br from-indigo-500 via-sky-400 to-pink-400 opacity-60 blur-2xl animate-pulse-glow" aria-hidden="true" />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-fg/15 bg-base shadow-2xl shadow-fg/10">
+                <img
+                  src={SITE.photo}
+                  alt={`Foto ${SITE.fullName}`}
+                  width={400}
+                  height={500}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+              <figcaption className="absolute -bottom-6 left-1/2 w-[88%] -translate-x-1/2 rounded-2xl border border-fg/12 bg-base/90 px-5 py-4 text-center shadow-xl shadow-fg/10 backdrop-blur">
+                <p className="font-display text-xl font-bold leading-tight">{SITE.fullName}</p>
+                <p className="mt-1 text-xs text-fg/60">Mahasiswa · Freelance Web Developer · UI/UX Designer</p>
+              </figcaption>
+            </figure>
           </Reveal>
 
-          <Reveal delay={140}>
-            <div className="mt-10 flex items-center gap-2.5">
-              <Layers size={16} className="text-fg dark:text-accent" aria-hidden="true" />
-              <h3 className="font-sans text-sm font-semibold">Skills &amp; Technologies</h3>
+          <div>
+            <Reveal delay={60}>
+              <h3 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
+                Hai, saya <span className="gradient-text">{SITE.fullName}</span>
+              </h3>
+              <div className="mt-3 flex flex-wrap gap-2 text-xs font-medium">
+                {[
+                  [GraduationCap, 'Mahasiswa'],
+                  [Code2, 'Web Developer'],
+                  [Palette, 'UI/UX Designer'],
+                ].map(([I, t]) => {
+                  const Icon = I as typeof Code2
+                  return (
+                    <span key={t as string} className="inline-flex items-center gap-1.5 rounded-full border border-fg/15 px-3 py-1.5">
+                      <Icon size={14} aria-hidden="true" /> {t as string}
+                    </span>
+                  )
+                })}
+              </div>
+            </Reveal>
+
+            <Reveal delay={120}>
+              <div className="mt-6 space-y-4">
+                {ABOUT_PARAGRAPHS.map((p, i) => (
+                  <p key={i} className={i === 0 ? 'lead' : 'text-base leading-relaxed text-fg/65 sm:text-lg'}>
+                    {p}
+                  </p>
+                ))}
+              </div>
+            </Reveal>
+
+            <Reveal delay={180}>
+              <dl className="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
+                {[
+                  [5, '+', 'Jenis website'],
+                  [4, '', 'Langkah kerja'],
+                  [100, '%', 'Responsif'],
+                ].map(([n, suffix, l]) => (
+                  <div key={l as string} className="card p-4 text-center hover:-translate-y-1 hover:border-accent/50 sm:p-5">
+                    <dt className="sr-only">{l as string}</dt>
+                    <dd>
+                      <span className="gradient-text font-display text-3xl font-extrabold sm:text-4xl">
+                        <CountUp to={n as number} suffix={suffix as string} />
+                      </span>
+                      <span className="mt-1 block text-xs leading-snug text-fg/60">{l as string}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </div>
+
+        <div className="mt-24">
+          <Reveal className="text-center">
+            <div className="inline-flex items-center gap-3">
+              <Layers size={26} className="text-fg dark:text-accent" aria-hidden="true" />
+              <h3 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">Skills &amp; Technologies</h3>
             </div>
-            <ul className="mt-4 flex flex-wrap gap-2.5">
-              {TECH_STACK.map((t) => (
-                <li
-                  key={t}
-                  className="rounded-full border border-fg/15 px-4 py-2 text-sm text-fg/80 transition hover:-translate-y-0.5 hover:border-accent hover:text-fg dark:hover:text-accent"
-                >
-                  {t}
-                </li>
-              ))}
-            </ul>
+            <p className="lead mx-auto mt-3 max-w-xl">Teknologi dan tools yang saya gunakan setiap hari.</p>
           </Reveal>
-
-          <Reveal delay={200}>
-            <dl className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {[
-                ['5', 'Website types offered'],
-                ['4', 'Clear steps, start to launch'],
-                ['1', 'Developer, direct communication'],
-              ].map(([n, l]) => (
-                <div key={l} className="rounded-2xl border border-fg/10 p-5">
-                  <dt className="sr-only">{l}</dt>
-                  <dd>
-                    <span className="font-display text-4xl font-bold">{n}</span>
-                    <span className="mt-1 block text-xs leading-snug text-fg/60">{l}</span>
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </Reveal>
+          <ul className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+            {TECH_STACK.map((t, i) => (
+              <li key={t.name}>
+                <Reveal delay={i * 50} className="h-full">
+                  <div className="card group flex h-full flex-col items-center gap-3 p-5 hover:-translate-y-2 hover:border-accent/60 hover:shadow-xl hover:shadow-accent/10">
+                    <img
+                      src={t.logo}
+                      alt=""
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      className={`h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-125 group-hover:rotate-6 ${
+                        'invertInDark' in t && t.invertInDark ? 'dark:invert' : ''
+                      }`}
+                    />
+                    <span className="text-center text-sm font-medium text-fg/80">{t.name}</span>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

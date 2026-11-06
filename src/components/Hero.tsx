@@ -1,20 +1,32 @@
 import { ArrowDownRight, ArrowUpRight, Code2, Gauge, Smartphone } from 'lucide-react'
+import { SITE } from '../data/site'
+import Typewriter from './Typewriter'
+
+const ROLES = ['Web Developer', 'UI/UX Designer', 'Freelancer', 'Problem Solver'] as const
 
 export default function Hero() {
   return (
     <section id="home" aria-labelledby="hero-title" className="relative overflow-hidden">
       <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
+      <div className="blob -left-32 top-10 h-96 w-96 bg-indigo-500/25" aria-hidden="true" />
+      <div className="blob -right-24 top-40 h-96 w-96 bg-sky-400/25 [animation-delay:-5s]" aria-hidden="true" />
+      <div className="blob bottom-0 left-1/3 h-72 w-72 bg-pink-400/20 [animation-delay:-10s]" aria-hidden="true" />
       <div className="container-x relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.1fr_1fr] lg:gap-10 lg:pb-28 lg:pt-24">
         <div>
           <div className="animate-fade-up">
-            <p className="eyebrow">Independent Web Developer</p>
+            <p className="eyebrow">
+              Hi, I&apos;m {SITE.fullName}
+            </p>
+            <p className="mt-3 font-display text-2xl font-bold sm:text-3xl">
+              <Typewriter words={ROLES} />
+            </p>
           </div>
           <h1
             id="hero-title"
             className="mt-5 animate-fade-up font-display text-[2.6rem] font-extrabold leading-[1.03] tracking-tight [animation-delay:80ms] sm:text-6xl lg:text-[4.4rem]"
           >
             Building Digital Experiences That Help{' '}
-            <span className="relative whitespace-nowrap text-fg/40 dark:text-accent">Businesses Grow.</span>
+            <span className="gradient-text">Businesses Grow.</span>
           </h1>
           <p className="lead mt-6 max-w-xl animate-fade-up [animation-delay:160ms]">
             I help businesses, startups, and personal brands build modern, responsive, and functional websites that turn
@@ -48,7 +60,7 @@ export default function Hero() {
               <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
               <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
               <span className="ml-4 flex h-5 flex-1 items-center rounded-full bg-fg/[0.06] px-3 font-mono text-[10px] text-fg/40">
-                yourbusiness.com
+                myportofolio.com
               </span>
             </div>
             <div className="space-y-5 p-6">

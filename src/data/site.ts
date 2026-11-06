@@ -5,20 +5,34 @@
  */
 
 export const SITE = {
-  /** Developer name shown in navbar, footer, and page metadata. */
-  name: 'Your Name',
-  /** WhatsApp number in international format, digits only (e.g. Indonesia: 62812xxxxxxx). */
-  whatsapp: '6281234567890',
-  whatsappMessage: "Hi, I found your portfolio and I'd like to discuss a website project.",
-  email: 'hello@example.com',
+  /** Brand name shown in navbar, footer, and page metadata. */
+  name: 'MyPoRtoFoLio',
+  /** Owner's full name (shown in About). */
+  fullName: 'Muhammad Fikri Al Haidar',
+  /** Profile photo. Replace the file at /public/profile.svg or point this to /profile.jpg, /profile.webp, etc. */
+  photo: '/profile.svg',
+  /** WhatsApp number in international format, digits only. */
+  whatsapp: '6287797890306',
+  /** Pre-filled WhatsApp message template (visitor only has to press "send"). */
+  whatsappMessage:
+    'Halo Fikri, saya menemukan portofolio kamu di website MyPoRtoFoLio dan tertarik untuk berdiskusi tentang pembuatan website.\n\nNama: \nJenis website yang dibutuhkan: \nGambaran singkat project: \nEstimasi budget / deadline: \n\nTerima kasih!',
+  /** Email that receives every form submission. */
+  email: 'fikrialhaidar17@gmail.com',
   socials: {
-    github: 'https://github.com/',
+    github: 'https://github.com/Alhaidar13',
     linkedin: 'https://www.linkedin.com/',
     instagram: 'https://www.instagram.com/',
   },
-  /** Endpoint that receives contact form submissions (see functions/api/contact.ts). */
+  /** Endpoint that stores a copy of form submissions in D1 (optional backup). */
   contactEndpoint: '/api/contact',
+  /** Form submissions are delivered straight to the owner's inbox through FormSubmit. */
+  emailEndpoint: 'https://formsubmit.co/ajax/fikrialhaidar17@gmail.com',
 } as const
+
+export const ABOUT_PARAGRAPHS = [
+  'Saya seorang mahasiswa yang saat ini aktif menjalani dunia perkuliahan sambil menekuni kesibukan harian sebagai freelance web developer dan UI/UX designer. Bagi saya, membangun sebuah website bukan cuma soal menulis baris kode, tapi juga menciptakan pengalaman digital yang estetis, interaktif, dan berdampak nyata bagi bisnis klien.',
+  'Keseharian saya diisi dengan mengeksplorasi teknologi web modern, merancang antarmuka pengguna yang ramah pengguna, serta terus mengasah kemampuan teknis untuk menghadirkan solusi pembuatan website yang cepat, aman, dan responsif.',
+] as const
 
 export const NAV_LINKS = [
   { label: 'Home', href: '#home' },
@@ -29,16 +43,16 @@ export const NAV_LINKS = [
 ] as const
 
 export const TECH_STACK = [
-  'HTML',
-  'CSS',
-  'JavaScript',
-  'TypeScript',
-  'React',
-  'Tailwind CSS',
-  'Vite',
-  'Git & GitHub',
-  'Responsive Design',
-  'REST APIs',
+  { name: 'HTML5', logo: '/tech/html.svg' },
+  { name: 'CSS3', logo: '/tech/css.svg' },
+  { name: 'JavaScript', logo: '/tech/javascript.svg' },
+  { name: 'TypeScript', logo: '/tech/typescript.svg' },
+  { name: 'React', logo: '/tech/react.svg' },
+  { name: 'Tailwind CSS', logo: '/tech/tailwind.svg' },
+  { name: 'Vite', logo: '/tech/vite.svg' },
+  { name: 'Git', logo: '/tech/git.svg' },
+  { name: 'GitHub', logo: '/tech/github.svg', invertInDark: true },
+  { name: 'Figma', logo: '/tech/figma.svg' },
 ] as const
 
 export type ServiceIcon = 'briefcase' | 'rocket' | 'building' | 'cart' | 'user'
