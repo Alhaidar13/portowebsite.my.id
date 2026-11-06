@@ -2,7 +2,7 @@ import { GraduationCap, Layers, Palette, Code2 } from 'lucide-react'
 import { ABOUT_PARAGRAPHS, SITE, TECH_STACK } from '../data/site'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
-import CountUp from './CountUp'
+import PhotoFrame from './PhotoFrame'
 
 export default function About() {
   return (
@@ -15,23 +15,7 @@ export default function About() {
 
         <div className="mt-16 grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal>
-            <figure className="relative mx-auto max-w-sm">
-              <div className="absolute -inset-3 rounded-[2.4rem] bg-gradient-to-br from-indigo-500 via-sky-400 to-pink-400 opacity-60 blur-2xl animate-pulse-glow" aria-hidden="true" />
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-fg/15 bg-base shadow-2xl shadow-fg/10">
-                <img
-                  src={SITE.photo}
-                  alt={`Foto ${SITE.fullName}`}
-                  width={400}
-                  height={500}
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-              <figcaption className="absolute -bottom-6 left-1/2 w-[88%] -translate-x-1/2 rounded-2xl border border-fg/12 bg-base/90 px-5 py-4 text-center shadow-xl shadow-fg/10 backdrop-blur">
-                <p className="font-display text-xl font-bold leading-tight">{SITE.fullName}</p>
-                <p className="mt-1 text-xs text-fg/60">Mahasiswa · Freelance Web Developer · UI/UX Designer</p>
-              </figcaption>
-            </figure>
+            <PhotoFrame />
           </Reveal>
 
           <div>
@@ -65,25 +49,6 @@ export default function About() {
               </div>
             </Reveal>
 
-            <Reveal delay={180}>
-              <dl className="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
-                {[
-                  [5, '+', 'Jenis website'],
-                  [4, '', 'Langkah kerja'],
-                  [100, '%', 'Responsif'],
-                ].map(([n, suffix, l]) => (
-                  <div key={l as string} className="card p-4 text-center hover:-translate-y-1 hover:border-accent/50 sm:p-5">
-                    <dt className="sr-only">{l as string}</dt>
-                    <dd>
-                      <span className="gradient-text font-display text-3xl font-extrabold sm:text-4xl">
-                        <CountUp to={n as number} suffix={suffix as string} />
-                      </span>
-                      <span className="mt-1 block text-xs leading-snug text-fg/60">{l as string}</span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </Reveal>
           </div>
         </div>
 

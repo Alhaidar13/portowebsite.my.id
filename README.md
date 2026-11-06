@@ -4,17 +4,15 @@ Portfolio premium untuk web developer freelance (UMKM, startup, bisnis lokal, pe
 Dibangun dengan **React + TypeScript + Tailwind CSS**, backend form kontak dengan **Cloudflare Pages Functions + D1**.
 
 ## Pembaruan terbaru
-- Brand diganti menjadi **MyPoRtoFoLio**; judul tiap section kini besar dan di tengah (komponen `SectionHeading`)
-- About: nama **Muhammad Fikri Al Haidar**, foto (`public/profile.svg` - ganti dengan foto asli, lihat bawah), teks "A Little About Me" versi Indonesia
-- Skills & Technologies berupa **logo** (HTML, CSS, JavaScript, TypeScript, React, Tailwind, Vite, Git, GitHub, **Figma**) di `public/tech/`
-- Email: `fikrialhaidar17@gmail.com`; WhatsApp: `6287797890306` dengan **template pesan otomatis** (edit di `SITE.whatsappMessage`)
-- Form kontak responsive, dikirim **langsung ke email** lewat FormSubmit (format tabel) + salinan ke D1 (opsional)
-- Tampilan lebih hidup: gradient teks animasi, blob bergerak, typewriter peran, progress bar scroll, spotlight kartu, count-up angka, tombol WhatsApp berdenyut
+- **About**: tabel statistik di bawah foto dihapus; foto profil baru (`public/profile.webp`, background diganti tema biru gelap) dalam **bingkai kreatif** (`PhotoFrame.tsx`: ring gradien berputar, sudut viewfinder, badge melayang, efek tilt 3D saat hover, garis scan)
+- **Project**: proyek pertama kini **LegalCraft** (https://legalcraftid.online/) dengan screenshot asli + tombol Live Preview
+- **Form kontak diperbaiki** ("Failed to fetch"): browser kini hanya memanggil endpoint se-domain `/api/contact`; server yang mengirim email (Resend jika `RESEND_API_KEY` diset, jika tidak FormSubmit server-to-server) + backup D1 opsional. Jika gagal, muncul tautan fallback `mailto:` dan WhatsApp
+- Opsi **"Let's Collabs (kerja sama)"** di pilihan jenis project + tombol cepat "Let's Collabs" di form
 
-> **Aktivasi email (wajib, sekali saja):** FormSubmit mengirim email konfirmasi ke fikrialhaidar17@gmail.com saat form pertama kali dikirim. Kirim 1 pesan uji dari website, buka email, lalu klik **Activate**. Setelah itu semua pesan masuk ke inbox.
-> Cek juga folder Spam.
-
-> **Ganti foto:** taruh foto di `public/profile.jpg`, lalu ubah `photo: '/profile.jpg'` di `src/data/site.ts`.
+> **Agar email pasti masuk (sekali saja):** pilih salah satu
+> 1. **Resend (disarankan)**: buat API key di resend.com, lalu `npx wrangler pages secret put RESEND_API_KEY --project-name <nama-project>` (opsional `NOTIFY_EMAIL`, `FROM_EMAIL`).
+> 2. **FormSubmit**: kirim 1 pesan dari website live, buka email fikrialhaidar17@gmail.com, klik **Activate** (cek Spam).
+> Tanpa keduanya, pesan tetap tersimpan di D1 bila binding `DB` terpasang.
 
 ## Fitur yang sudah selesai
 - Navbar sticky, menu hamburger di mobile, penanda section aktif, tombol "Let's Talk"

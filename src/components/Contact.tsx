@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { AlertCircle, CheckCircle2, Loader2, Mail, MessageCircle, Send } from 'lucide-react'
+import { AlertCircle, CheckCircle2, Handshake, Loader2, Mail, MessageCircle, Send } from 'lucide-react'
 import { PROJECT_TYPES, SITE } from '../data/site'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
@@ -12,7 +12,17 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 export const whatsappLink = (text: string = SITE.whatsappMessage) =>
   `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`
 
+type FormData2 = { name: string; email: string; business: string; projectType: string; message: string }
+const mailtoLink = (d: FormData2 | null) => {
+  const subject = d ? `Inquiry dari ${d.name} — ${d.projectType}` : 'Inquiry website'
+  const body = d
+    ? `Nama: ${d.name}\nEmail: ${d.email}\nBisnis: ${d.business || '-'}\nJenis project: ${d.projectType}\n\n${d.message}`
+    : ''
+  return `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+}
+
 export default function Contact() {
+  const [lastData, setLastData] = useState<FormData2 | null>(null)
   const [status, setStatus] = useState<Status>('idle')
   const [errors, setErrors] = useState<Errors>({})
   const [serverMsg, setServerMsg] = useState('')
@@ -44,6 +54,7 @@ export default function Contact() {
 
     setStatus('sending')
     setServerMsg('')
+    setLastData(data)
     try {
       if (data.website) {
         // honeypot filled -> pretend success
@@ -51,31 +62,25 @@ export default function Contact() {
         form.reset()
         return
       }
-      // 1) Primary: deliver straight to the owner's inbox (formatted as a table email).
-      const res = await fetch(SITE.emailEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({
-          Nama: data.name,
-          Email: data.email,
-          Bisnis: data.business || '-',
-          'Jenis Project': data.projectType,
-          Pesan: data.message,
-          _subject: `Inquiry baru dari ${data.name} — ${data.projectType}`,
-          _replyto: data.email,
-          _template: 'table',
-          _captcha: 'false',
-        }),
-      })
-      const json = (await res.json().catch(() => ({}))) as { success?: boolean | string; message?: string }
-      const ok = res.ok && (json.success === true || json.success === 'true')
-      if (!ok) throw new Error(json.message || 'Pesan gagal dikirim. Silakan coba lagi atau hubungi saya lewat WhatsApp.')
-      // 2) Best-effort backup copy in D1 (never blocks success).
-      fetch(SITE.contactEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      }).catch(() => undefined)
+      // Same-origin server endpoint (no CORS / adblock issues). The server delivers the email.
+      let res: Response
+      try {
+        res = await fetch(SITE.contactEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+      } catch {
+        throw new Error('Koneksi ke server gagal. Periksa internet kamu, atau kirim lewat email / WhatsApp di bawah.')
+      }
+      const json = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: Errors }
+      if (res.status === 422 && json.errors) {
+        setErrors(json.errors)
+        throw new Error(json.error || 'Periksa kembali kolom yang ditandai.')
+      }
+      if (!res.ok || !json.ok) {
+        throw new Error(json.error || 'Pesan belum terkirim. Silakan coba lagi, atau kirim lewat email / WhatsApp di bawah.')
+      }
       setStatus('success')
       form.reset()
     } catch (err) {
@@ -206,6 +211,19 @@ export default function Contact() {
                   </div>
                 </div>
 
+                <button
+                  type="button"
+                  onClick={() => {
+                    const sel = document.getElementById('projectType') as HTMLSelectElement | null
+                    if (sel) sel.value = PROJECT_TYPES[PROJECT_TYPES.length - 2]
+                    setErrors((e) => ({ ...e, projectType: undefined }))
+                  }}
+                  className="group inline-flex items-center gap-2 rounded-full border border-dashed border-accent/60 bg-accent/5 px-4 py-2 text-xs font-semibold transition hover:-translate-y-0.5 hover:bg-accent/10"
+                >
+                  <Handshake size={15} className="text-accent transition group-hover:rotate-12" aria-hidden="true" />
+                  Let&apos;s Collabs — ajak saya kolaborasi!
+                </button>
+
                 <div>
                   <label htmlFor="message" className={label}>
                     Deskripsi project <span aria-hidden="true">*</span>
@@ -218,7 +236,17 @@ export default function Contact() {
                   {status === 'error' && (
                     <p className="flex items-start gap-2.5 rounded-2xl border border-fg/20 bg-fg/[0.04] p-4 text-sm" role="alert">
                       <AlertCircle size={18} className="mt-0.5 shrink-0" aria-hidden="true" />
-                      {serverMsg}
+                      <span>
+                        {serverMsg}{' '}
+                        <a href={mailtoLink(lastData)} className="link-u font-semibold">
+                          Kirim lewat aplikasi email
+                        </a>{' '}
+                        atau{' '}
+                        <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="link-u font-semibold">
+                          WhatsApp
+                        </a>
+                        .
+                      </span>
                     </p>
                   )}
                 </div>

@@ -9,8 +9,8 @@ export const SITE = {
   name: 'MyPoRtoFoLio',
   /** Owner's full name (shown in About). */
   fullName: 'Muhammad Fikri Al Haidar',
-  /** Profile photo. Replace the file at /public/profile.svg or point this to /profile.jpg, /profile.webp, etc. */
-  photo: '/profile.svg',
+  /** Profile photo. File located at /public/profile.webp. */
+  photo: '/profile.webp',
   /** WhatsApp number in international format, digits only. */
   whatsapp: '6287797890306',
   /** Pre-filled WhatsApp message template (visitor only has to press "send"). */
@@ -23,10 +23,8 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/',
     instagram: 'https://www.instagram.com/',
   },
-  /** Endpoint that stores a copy of form submissions in D1 (optional backup). */
+  /** Same-origin endpoint: sends the email server-side (+ optional D1 backup). */
   contactEndpoint: '/api/contact',
-  /** Form submissions are delivered straight to the owner's inbox through FormSubmit. */
-  emailEndpoint: 'https://formsubmit.co/ajax/fikrialhaidar17@gmail.com',
 } as const
 
 export const ABOUT_PARAGRAPHS = [
@@ -78,6 +76,7 @@ export const PROJECT_TYPES = [
   'Company Profile',
   'E-Commerce Website',
   'Personal Website',
+  "Let's Collabs (kerja sama)",
   'Other',
 ] as const
 
@@ -112,18 +111,21 @@ export interface Project {
 
 export const PROJECTS: Project[] = [
   {
-    slug: 'project-one',
-    name: 'Project One',
-    type: 'E-Commerce Website',
-    category: 'Online Store',
-    description: 'A modern e-commerce experience designed to showcase products and simplify online shopping.',
+    slug: 'legalcraft',
+    name: 'LegalCraft',
+    type: 'Legal Services Platform',
+    category: 'Legal & Business',
+    description: 'Platform pengurusan legalitas usaha — NPWP, NIB, hingga PT Perorangan — dari satu tempat tanpa ribet.',
     overview:
-      'Replace this text with the real project story: the client or brief, the problem to solve, and what the final website achieves. This placeholder describes the kind of e-commerce work offered.',
-    scope: ['Product catalog & detail pages', 'Cart and checkout flow', 'Responsive design', 'Performance optimization'],
-    highlights: ['Clear product browsing', 'Simple, low-friction checkout', 'Mobile-first layout'],
-    tech: ['React', 'TypeScript', 'Tailwind CSS'],
-    mockup: 'shop',
-    isPlaceholder: true,
+      'LegalCraft membantu pelaku usaha mengurus legalitas (NPWP, NIB, PT Perorangan) secara online. Pengguna cukup login atau register, memilih layanan, membayar via BSI atau GoPay, lalu didampingi admin lewat WhatsApp sampai dokumen terbit. Website ini sudah live dan bisa diakses publik.',
+    scope: ['Landing page dengan onboarding slider', 'Login & register pengguna', 'Katalog layanan legalitas & harga promo', 'Pembayaran BSI / GoPay dengan struk otomatis', 'Mode terang / gelap'],
+    highlights: ['Harga promo mulai Rp149.000', 'Pembayaran terverifikasi otomatis', 'Konsultasi langsung dengan admin via WhatsApp'],
+    tech: ['Web App', 'UI/UX Design', 'Responsive'],
+    mockup: 'corporate',
+    image: '/projects/legalcraft.webp',
+    imageAlt: 'Tampilan website LegalCraft — Urus Legalitas Usaha Jadi Lebih Mudah',
+    liveUrl: 'https://legalcraftid.online/',
+    isPlaceholder: false,
   },
   {
     slug: 'project-two',
