@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* LIGHT MODE */
+  --c-base: 248 250 252; /* #F8FAFC */
+  --c-fg: 15 23 42; /* #0F172A */
+  --c-accent: 15 23 42; /* #0F172A (dark elements act as accent in light mode) */
+  --c-on-accent: 248 250 252;
+  color-scheme: light;
+}
+.dark {
+  /* DARK MODE */
+  --c-base: 11 15 25; /* #0B0F19 */
+  --c-fg: 248 250 252; /* text reuses #F8FAFC */
+  --c-accent: 56 189 248; /* #38BDF8 */
+  --c-on-accent: 11 15 25;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-base font-sans text-fg antialiased;
+    transition: background-color .35s ease, color .35s ease;
+  }
+  h1, h2, h3, h4 { @apply font-display; }
+  section[id] { scroll-margin-top: 5rem; }
+  ::selection { background: rgb(var(--c-accent) / .25); }
+  :focus-visible {
+    outline: 2px solid rgb(var(--c-accent));
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10; }
+  .eyebrow { @apply font-sans text-xs font-medium uppercase tracking-[0.22em] text-fg/60 dark:text-accent; }
+  .section-title { @apply font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl; }
+  .lead { @apply font-sans text-base leading-relaxed text-fg/70 sm:text-lg; }
+  .hairline { @apply border-fg/10; }
+  .card {
+    @apply rounded-3xl border border-fg/10 bg-base;
+    transition: transform .35s cubic-bezier(.22,1,.36,1), border-color .3s ease, box-shadow .35s ease, background-color .35s ease;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-medium;
+    transition: transform .25s cubic-bezier(.22,1,.36,1), background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { @apply bg-accent text-onaccent hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent/25; }
+  .btn-outline { @apply border border-fg/20 text-fg hover:-translate-y-0.5 hover:border-accent hover:text-fg dark:hover:text-accent; }
+  .field {
+    @apply w-full rounded-2xl border border-fg/15 bg-transparent px-4 py-3 font-sans text-sm text-fg placeholder:text-fg/40;
+    transition: border-color .2s ease, box-shadow .2s ease;
+  }
+  .field:focus { outline: none; border-color: rgb(var(--c-accent)); box-shadow: 0 0 0 4px rgb(var(--c-accent) / .15); }
+  .field[aria-invalid="true"] { border-color: rgb(var(--c-fg) / .7); }
+  .link-u {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size .3s ease;
+  }
+  .link-u:hover { background-size: 100% 1px; }
+}
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); transition-delay: var(--d, 0ms); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Subtle grid backdrop for hero */
+.bg-grid {
+  background-image:
+    linear-gradient(rgb(var(--c-fg) / .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--c-fg) / .05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 30%, transparent 75%);
+}
+
+body.modal-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Smooth colour transition when toggling theme */
+.theme-transition, .theme-transition *, .theme-transition *::before, .theme-transition *::after {
+  transition: background-color .4s ease, color .4s ease, border-color .4s ease, fill .4s ease, stroke .4s ease, box-shadow .4s ease !important;
+}
