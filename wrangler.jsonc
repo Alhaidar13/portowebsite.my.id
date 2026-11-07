@@ -7,9 +7,8 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "portowebsite-production",
-      // Replace with the real ID after: npx wrangler d1 create portowebsite-production
-      "database_id": "00000000-0000-0000-0000-000000000000"
+      "database_name": "portowebsite-my-id",
+      "database_id": "2502f862-9326-4d80-b670-36cf2829a96d"
     }
   ]
 }
