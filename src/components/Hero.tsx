@@ -11,7 +11,7 @@ export default function Hero() {
       <div className="blob -left-32 top-10 h-96 w-96 bg-indigo-500/25" aria-hidden="true" />
       <div className="blob -right-24 top-40 h-96 w-96 bg-sky-400/25 [animation-delay:-5s]" aria-hidden="true" />
       <div className="blob bottom-0 left-1/3 h-72 w-72 bg-pink-400/20 [animation-delay:-10s]" aria-hidden="true" />
-      <div className="container-x relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.1fr_1fr] lg:gap-10 lg:pb-28 lg:pt-24">
+      <div className="container-x relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-28 lg:pt-24">
         <div>
           <div className="animate-fade-up">
             <p className="eyebrow">
@@ -23,7 +23,7 @@ export default function Hero() {
           </div>
           <h1
             id="hero-title"
-            className="mt-5 animate-fade-up font-display text-[2.6rem] font-extrabold leading-[1.03] tracking-tight [animation-delay:80ms] sm:text-6xl lg:text-[4.4rem]"
+            className="mt-5 animate-fade-up font-display text-[2.6rem] font-extrabold leading-[1.03] tracking-tight [animation-delay:80ms] sm:text-6xl lg:text-[3.6rem] xl:text-[4.2rem]"
           >
             Building Digital Experiences That Help{' '}
             <span className="gradient-text">Businesses Grow.</span>
@@ -52,9 +52,8 @@ export default function Hero() {
         </div>
 
         {/* Composition: abstract browser preview with floating UI chips */}
-        <div className="relative mx-auto w-full max-w-xl animate-fade-up [animation-delay:200ms] lg:max-w-none" aria-hidden="true">
-          <div className="absolute -inset-6 rounded-[2.5rem] border border-dashed border-fg/10" />
-          <div className="relative overflow-hidden rounded-3xl border border-fg/12 bg-base shadow-2xl shadow-fg/10 dark:shadow-accent/10">
+        <div className="relative mx-auto w-full max-w-xl animate-fade-up px-3 pb-6 pt-5 [animation-delay:200ms] sm:px-6 lg:max-w-none" aria-hidden="true">
+                    <div className="relative overflow-hidden rounded-3xl border border-fg/12 bg-base shadow-2xl shadow-fg/10 dark:shadow-accent/10">
             <div className="flex items-center gap-1.5 border-b border-fg/10 px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
               <span className="h-2.5 w-2.5 rounded-full bg-fg/20" />
@@ -94,15 +93,15 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="absolute -left-4 top-16 flex animate-float items-center gap-2.5 rounded-2xl border border-fg/12 bg-base/90 px-4 py-3 shadow-xl shadow-fg/5 backdrop-blur sm:-left-10">
+          <div className="absolute -top-1 right-4 flex animate-float items-center gap-2 rounded-2xl border border-fg/12 bg-base/95 px-3 py-2 sm:right-8 sm:gap-2.5 sm:px-4 sm:py-2.5 shadow-xl shadow-fg/10 backdrop-blur">
             <Smartphone size={16} className="text-fg dark:text-accent" />
             <span className="text-xs font-medium">Responsive</span>
           </div>
-          <div className="absolute -right-3 top-1/2 flex animate-float-slow items-center gap-2.5 rounded-2xl border border-fg/12 bg-base/90 px-4 py-3 shadow-xl shadow-fg/5 backdrop-blur sm:-right-8">
+          <div className="absolute -bottom-1 right-2 flex animate-float-slow items-center gap-2 rounded-2xl border border-fg/12 bg-base/95 px-3 py-2 sm:right-8 sm:gap-2.5 sm:px-4 sm:py-2.5 shadow-xl shadow-fg/10 backdrop-blur">
             <Gauge size={16} className="text-fg dark:text-accent" />
             <span className="text-xs font-medium">Fast &amp; Optimized</span>
           </div>
-          <div className="absolute -bottom-5 left-10 flex animate-float items-center gap-2.5 rounded-2xl border border-fg/12 bg-base/90 px-4 py-3 shadow-xl shadow-fg/5 backdrop-blur [animation-delay:1.2s]">
+          <div className="absolute -bottom-1 left-2 flex animate-float items-center gap-2 rounded-2xl border border-fg/12 bg-base/95 px-3 py-2 sm:left-8 sm:gap-2.5 sm:px-4 sm:py-2.5 shadow-xl shadow-fg/10 backdrop-blur [animation-delay:1.2s]">
             <Code2 size={16} className="text-fg dark:text-accent" />
             <span className="text-xs font-medium">Clean Code</span>
           </div>

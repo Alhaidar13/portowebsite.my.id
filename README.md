@@ -4,10 +4,11 @@ Portfolio premium untuk web developer freelance (UMKM, startup, bisnis lokal, pe
 Dibangun dengan **React + TypeScript + Tailwind CSS**, backend form kontak dengan **Cloudflare Pages Functions + D1**.
 
 ## Pembaruan terbaru
-- **About**: tabel statistik di bawah foto dihapus; foto profil baru (`public/profile.webp`, background diganti tema biru gelap) dalam **bingkai kreatif** (`PhotoFrame.tsx`: ring gradien berputar, sudut viewfinder, badge melayang, efek tilt 3D saat hover, garis scan)
-- **Project**: proyek pertama kini **LegalCraft** (https://legalcraftid.online/) dengan screenshot asli + tombol Live Preview
-- **Form kontak diperbaiki** ("Failed to fetch"): browser kini hanya memanggil endpoint se-domain `/api/contact`; server yang mengirim email (Resend jika `RESEND_API_KEY` diset, jika tidak FormSubmit server-to-server) + backup D1 opsional. Jika gagal, muncul tautan fallback `mailto:` dan WhatsApp
-- Opsi **"Let's Collabs (kerja sama)"** di pilihan jenis project + tombol cepat "Let's Collabs" di form
+- **Galeri project yang bisa digeser**: klik **View Project** pada LegalCraft / Nook Coffee Boutique, lalu geser gambar (swipe di HP, drag mouse di desktop, tombol panah, titik indikator, atau keyboard ← →). Komponen: `src/components/Gallery.tsx`; data slide lewat field `gallery` di `src/data/site.ts`
+- **Project baru: Nook Coffee Boutique** (https://nookcoffeeboutique-my-id.pages.dev/) dengan 3 screenshot (`public/projects/nook-*.webp`) + tombol Live Preview. LegalCraft kini punya 3 gambar (`legalcraft*.webp`)
+- **Foto profil tanpa background & tanpa frame**: `public/profile.webp` kini PNG-cutout (transparan). `PhotoFrame.tsx` dibuat ulang: foto berdiri sendiri, memudar halus ke halaman, dikelilingi chip tech melayang dengan efek parallax mengikuti kursor
+- **Perapihan layout** (tidak ada lagi elemen yang saling tabrak): chip melayang di Hero dipindah ke tepi mockup dan dikecilkan di mobile, border putus-putus yang memotong chip dihapus, ukuran judul hero disesuaikan agar tidak terlalu padat, badge placeholder dipindah ke pojok kanan bawah dan diganti "Coming soon", rasio gambar kartu project disamakan dengan screenshot (1024x465)
+- Form kontak: browser memanggil `/api/contact` (server-side delivery), opsi "Let's Collabs"
 
 > **Agar email pasti masuk (sekali saja):** pilih salah satu
 > 1. **Resend (disarankan)**: buat API key di resend.com, lalu `npx wrangler pages secret put RESEND_API_KEY --project-name <nama-project>` (opsional `NOTIFY_EMAIL`, `FROM_EMAIL`).
@@ -31,7 +32,8 @@ Semua teks yang perlu diganti ada di **`src/data/site.ts`**:
   - Taruh screenshot di `public/projects/` lalu isi `image: '/projects/project-one.webp'`
   - Set `isPlaceholder: false` untuk menghapus badge "Placeholder"
   - Isi `liveUrl` agar tombol "Live Preview" muncul
-- Foto profil: ganti blok placeholder di `src/components/About.tsx`
+- Foto profil: ganti `public/profile.webp` (gunakan PNG/WebP transparan)
+  - Galeri swipe: isi `gallery: [{ src, alt, caption }, ...]` pada project (minimal 2 gambar)
 
 ## Struktur
 ```

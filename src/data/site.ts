@@ -105,8 +105,16 @@ export interface Project {
   mockup: MockupVariant
   image?: string
   imageAlt?: string
+  /** Optional swipeable slides shown in the project modal. */
+  gallery?: GalleryImage[]
   liveUrl?: string
   isPlaceholder: boolean
+}
+
+export interface GalleryImage {
+  src: string
+  alt: string
+  caption: string
 }
 
 export const PROJECTS: Project[] = [
@@ -124,22 +132,35 @@ export const PROJECTS: Project[] = [
     mockup: 'corporate',
     image: '/projects/legalcraft.webp',
     imageAlt: 'Tampilan website LegalCraft — Urus Legalitas Usaha Jadi Lebih Mudah',
+    gallery: [
+      { src: '/projects/legalcraft.webp', alt: 'LegalCraft — halaman utama dan onboarding', caption: 'Halaman utama & onboarding' },
+      { src: '/projects/legalcraft-1.webp', alt: 'LegalCraft — 4 langkah mudah bersama LegalCraft', caption: 'Cara kerja — 4 langkah mudah' },
+      { src: '/projects/legalcraft-2.webp', alt: 'LegalCraft — daftar harga layanan promo NPWP, NIB, dan PT Perorangan', caption: 'Harga layanan & promo' },
+    ],
     liveUrl: 'https://legalcraftid.online/',
     isPlaceholder: false,
   },
   {
-    slug: 'project-two',
-    name: 'Project Two',
-    type: 'Coffee Shop Website',
+    slug: 'nook-coffee-boutique',
+    name: 'Nook Coffee Boutique',
+    type: 'Coffee E-Commerce Website',
     category: 'Food & Beverage',
-    description: 'A professional website for a coffee business, featuring product showcases and business information.',
+    description: 'Toko online specialty coffee dengan katalog blend, pilihan ukuran, harga promo, dan pemesanan praktis via WhatsApp.',
     overview:
-      'Replace this text with the real project story. This placeholder represents a café or food & beverage website with a menu, location details, and brand storytelling.',
-    scope: ['Menu & product showcase', 'Location and opening hours', 'Brand storytelling', 'Responsive design'],
-    highlights: ['Appetizing visual presentation', 'Easy-to-find business info', 'Fast loading on mobile'],
-    tech: ['React', 'Tailwind CSS', 'Vite'],
+      'Nook Coffee Boutique adalah website toko kopi specialty yang menampilkan koleksi blend Robusta, Arabika, dan campuran lengkap dengan pilihan ukuran 100g / 250g / 1 Kg, label hemat, serta keranjang belanja. Dilengkapi bagian filosofi brand, testimoni pelanggan, dan tombol WhatsApp untuk pemesanan cepat. Website ini sudah live dan bisa diakses publik.',
+    scope: ['Hero & brand storytelling', 'Katalog produk dengan pilihan ukuran', 'Label diskon & harga coret', 'Keranjang belanja', 'Bagian About, Testimonials & Contact', 'Tombol WhatsApp & scroll-to-top'],
+    highlights: ['Promo hemat hingga 22%', 'Rating 4.9/5 dari 500+ pelanggan', 'Tampilan hangat bernuansa kopi'],
+    tech: ['E-Commerce', 'UI/UX Design', 'Responsive'],
     mockup: 'coffee',
-    isPlaceholder: true,
+    image: '/projects/nook-1.webp',
+    imageAlt: 'Tampilan website Nook Coffee Boutique — Discover the Art of Exceptional Coffee',
+    gallery: [
+      { src: '/projects/nook-1.webp', alt: 'Nook Coffee Boutique — hero Discover the Art of Exceptional Coffee', caption: 'Hero & promo' },
+      { src: '/projects/nook-2.webp', alt: 'Nook Coffee Boutique — katalog produk kopi dengan pilihan ukuran', caption: 'Katalog produk & pilihan ukuran' },
+      { src: '/projects/nook-3.webp', alt: 'Nook Coffee Boutique — bagian About More Than Just Coffee', caption: 'Brand story — More Than Just Coffee' },
+    ],
+    liveUrl: 'https://nookcoffeeboutique-my-id.pages.dev/',
+    isPlaceholder: false,
   },
   {
     slug: 'project-three',

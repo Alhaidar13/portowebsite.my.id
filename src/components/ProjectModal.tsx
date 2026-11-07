@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { ArrowLeft, ArrowRight, Check, ExternalLink, X } from 'lucide-react'
 import { PROJECTS, type Project } from '../data/site'
 import { ProjectVisual } from './ProjectCard'
+import Gallery from './Gallery'
 
 interface Props {
   project: Project | null
@@ -87,9 +88,13 @@ export default function ProjectModal({ project, onClose, onNavigate }: Props) {
 
         <div className="overflow-y-auto overscroll-contain">
           <div className="p-5 sm:p-7">
-            <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-fg/10">
-              <ProjectVisual project={project} eager />
-            </div>
+            {project.gallery && project.gallery.length > 1 ? (
+              <Gallery slides={project.gallery} label={project.name} />
+            ) : (
+              <div className="aspect-[16/9] overflow-hidden rounded-2xl border border-fg/10">
+                <ProjectVisual project={project} eager />
+              </div>
+            )}
 
             <div className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:gap-12">
               <div>

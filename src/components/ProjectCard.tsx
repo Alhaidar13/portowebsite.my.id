@@ -39,15 +39,15 @@ export default function ProjectCard({ project, index, featured = false, onOpen }
         onClick={() => onOpen(project)}
         aria-label={`Open details for ${project.name}`}
         className={`relative block overflow-hidden rounded-2xl border border-fg/10 text-left ${
-          featured ? 'aspect-[16/10] lg:w-[58%] lg:shrink-0' : 'aspect-[16/10] w-full'
+          featured ? 'aspect-[1024/465] lg:w-[58%] lg:shrink-0 lg:self-center' : 'aspect-[1024/465] w-full'
         }`}
       >
         <div className="h-full w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]">
           <ProjectVisual project={project} eager={index === 0} />
         </div>
         {project.isPlaceholder && (
-          <span className="absolute left-3 top-3 rounded-full border border-fg/15 bg-base/85 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-fg/70 backdrop-blur">
-            Placeholder
+          <span className="absolute bottom-3 right-3 rounded-full border border-fg/15 bg-base/90 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-fg/70 backdrop-blur">
+            Coming soon
           </span>
         )}
       </button>

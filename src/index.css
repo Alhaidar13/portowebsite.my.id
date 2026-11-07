@@ -126,22 +126,12 @@ body.modal-open { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) { .scroll-progress { display: none; } .gradient-text { animation: none; } }
 
-/* Creative photo frame */
-.photo-ring {
-  background: conic-gradient(from var(--ang, 0deg), #6366f1, #38bdf8, #f472b6, #6366f1);
-  animation: ringspin 6s linear infinite;
+/* Frameless cut-out portrait: soft elliptical fade so no hard crop edges show */
+.photo-fade {
+  mask-image: radial-gradient(ellipse 52% 64% at 50% 40%, #000 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 52% 64% at 50% 40%, #000 55%, transparent 100%);
 }
-@property --ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
-@keyframes ringspin { to { --ang: 360deg; } }
-.photo-dots {
-  background-image: radial-gradient(rgb(var(--c-fg) / .35) 1.6px, transparent 1.6px);
-  background-size: 14px 14px;
-  mask-image: radial-gradient(circle, #000 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 75%);
-}
-.photo-scan {
-  background: linear-gradient(180deg, transparent, rgb(56 189 248 / .22), transparent);
-  animation: scan 5s ease-in-out infinite;
-}
-@keyframes scan { 0% { top: -20%; } 100% { top: 110%; } }
-@media (prefers-reduced-motion: reduce) { .photo-ring, .photo-scan { animation: none; } }
+
+/* Gallery: hide native scrollbar, keep swipe */
+.gallery-track { scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; }
+.gallery-track::-webkit-scrollbar { display: none; }

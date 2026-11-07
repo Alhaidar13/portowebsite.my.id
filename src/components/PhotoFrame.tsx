@@ -1,8 +1,26 @@
-import { useRef, type MouseEvent } from 'react'
+import { useRef, type CSSProperties, type MouseEvent, type ReactNode } from 'react'
 import { Code2, Palette, Sparkles } from 'lucide-react'
 import { SITE } from '../data/site'
 
-/** Creative photo frame: spinning gradient ring, dotted grid, viewfinder corners, floating badges, 3D tilt on hover. */
+/** One floating element: outer = mouse parallax, inner = idle float. */
+function Float({ className, depth, delay = '0s', children }: { className: string; depth: number; delay?: string; children: ReactNode }) {
+  const style: CSSProperties = { transform: `translate(calc(var(--px, 0) * ${depth}px), calc(var(--py, 0) * ${depth}px))` }
+  return (
+    <div className={`absolute transition-transform duration-300 ease-out ${className}`} style={style} aria-hidden="true">
+      <div className="animate-float" style={{ animationDelay: delay }}>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+const chip =
+  'flex items-center gap-2 rounded-2xl border border-fg/12 bg-base/90 px-3 py-2 text-xs font-semibold shadow-xl shadow-fg/10 backdrop-blur'
+
+/**
+ * Frameless, background-free portrait: the cut-out photo stands on its own,
+ * fading softly into the page, surrounded by floating tech chips that react to the cursor.
+ */
 export default function PhotoFrame() {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -10,67 +28,68 @@ export default function PhotoFrame() {
     const el = ref.current
     if (!el) return
     const r = el.getBoundingClientRect()
-    const x = (e.clientX - r.left) / r.width - 0.5
-    const y = (e.clientY - r.top) / r.height - 0.5
-    el.style.transform = `perspective(900px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`
+    el.style.setProperty('--px', String((e.clientX - r.left) / r.width - 0.5))
+    el.style.setProperty('--py', String((e.clientY - r.top) / r.height - 0.5))
   }
   const onLeave = () => {
-    if (ref.current) ref.current.style.transform = ''
+    ref.current?.style.setProperty('--px', '0')
+    ref.current?.style.setProperty('--py', '0')
   }
 
-  const corner = 'absolute h-9 w-9 border-accent'
-
   return (
-    <div className="photo-frame relative mx-auto w-full max-w-[22rem] px-6 py-6">
-      {/* dotted pattern + orbit rings */}
-      <div className="photo-dots absolute -right-2 top-0 h-32 w-32" aria-hidden="true" />
-      <div className="photo-dots absolute -left-2 bottom-0 h-32 w-32" aria-hidden="true" />
-      <div className="absolute inset-0 m-auto h-[108%] w-[108%] animate-[spin_40s_linear_infinite] rounded-full border border-dashed border-fg/15" aria-hidden="true" />
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="photo-cutout relative mx-auto w-full max-w-[24rem] px-3 pt-8 sm:px-0"
+    >
+      {/* the portrait itself — no frame, no backdrop */}
+      <div className="relative mx-auto w-[88%]">
+        <img
+          src={SITE.photo}
+          alt={`Foto ${SITE.fullName}`}
+          width={878}
+          height={1162}
+          loading="lazy"
+          className="photo-fade relative z-10 h-auto w-full select-none drop-shadow-[0_28px_40px_rgb(15_23_42/0.28)]"
+        />
+        {/* soft ground shadow so the cut-out feels grounded */}
+        <div className="absolute inset-x-[8%] -bottom-1 z-0 h-8 rounded-[50%] bg-fg/25 blur-2xl" aria-hidden="true" />
+      </div>
 
-      <div
-        ref={ref}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        className="relative transition-transform duration-300 ease-out will-change-transform"
-      >
-        {/* spinning conic gradient border */}
-        <div className="photo-ring absolute -inset-[5px] rounded-[2.2rem]" aria-hidden="true" />
-        <div className="absolute -inset-4 rounded-[2.6rem] bg-gradient-to-br from-indigo-500 via-sky-400 to-pink-400 opacity-40 blur-2xl animate-pulse-glow" aria-hidden="true" />
-
-        <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] border-2 border-base bg-base shadow-2xl shadow-fg/20">
-          <img
-            src={SITE.photo}
-            alt={`Foto ${SITE.fullName}`}
-            width={900}
-            height={1200}
-            loading="lazy"
-            className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105"
-          />
-          <div className="photo-scan pointer-events-none absolute inset-x-0 h-24" aria-hidden="true" />
-        </div>
-
-        {/* viewfinder corners */}
-        <span className={`${corner} -left-3 -top-3 rounded-tl-2xl border-l-4 border-t-4`} aria-hidden="true" />
-        <span className={`${corner} -right-3 -top-3 rounded-tr-2xl border-r-4 border-t-4`} aria-hidden="true" />
-        <span className={`${corner} -bottom-3 -left-3 rounded-bl-2xl border-b-4 border-l-4`} aria-hidden="true" />
-        <span className={`${corner} -bottom-3 -right-3 rounded-br-2xl border-b-4 border-r-4`} aria-hidden="true" />
-
-        {/* floating badges */}
-        <span className="absolute -left-5 top-10 flex animate-float items-center gap-2 rounded-2xl border border-fg/12 bg-base/90 px-3 py-2 text-xs font-semibold shadow-xl backdrop-blur sm:-left-9">
-          <Code2 size={16} className="text-accent" aria-hidden="true" /> Developer
+      {/* floating chips — kept around the edges so they never cover the face */}
+      <Float className="left-0 top-[20%] z-20 sm:-left-8" depth={-18}>
+        <span className={chip}>
+          <Code2 size={16} className="text-accent" /> Developer
         </span>
-        <span className="absolute -right-5 top-1/2 flex animate-float-slow items-center gap-2 rounded-2xl border border-fg/12 bg-base/90 px-3 py-2 text-xs font-semibold shadow-xl backdrop-blur sm:-right-9">
-          <Palette size={16} className="text-pink-400" aria-hidden="true" /> UI/UX
+      </Float>
+      <Float className="right-0 top-[38%] z-20 sm:-right-8" depth={22} delay="-3s">
+        <span className={chip}>
+          <Palette size={16} className="text-pink-400" /> UI/UX
         </span>
-        <span className="absolute -bottom-4 left-6 flex animate-float items-center gap-2 rounded-full border border-fg/12 bg-base/90 px-3.5 py-2 text-xs font-semibold shadow-xl backdrop-blur [animation-delay:-3s]">
+      </Float>
+      <Float className="left-2 top-[62%] z-20 sm:-left-6" depth={14} delay="-5s">
+        <span className="grid h-12 w-12 place-items-center rounded-2xl border border-fg/12 bg-base/90 shadow-xl shadow-fg/10 backdrop-blur">
+          <img src="/tech/react.svg" alt="" width={26} height={26} className="h-[26px] w-[26px]" />
+        </span>
+      </Float>
+      <Float className="right-2 top-[64%] z-20 sm:-right-5" depth={-14} delay="-2s">
+        <span className="grid h-12 w-12 place-items-center rounded-2xl border border-fg/12 bg-base/90 shadow-xl shadow-fg/10 backdrop-blur">
+          <img src="/tech/figma.svg" alt="" width={24} height={24} className="h-6 w-6" />
+        </span>
+      </Float>
+      <Float className="left-1/2 top-[6%] z-0 -translate-x-1/2" depth={-10} delay="-1s">
+        <Sparkles size={26} className="animate-wiggle text-accent" />
+      </Float>
+      <Float className="bottom-3 left-1/2 z-20 -translate-x-1/2" depth={8} delay="-4s">
+        <span className={`${chip} rounded-full`}>
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping2 rounded-full bg-emerald-400" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
           </span>
           Open for projects
         </span>
-        <Sparkles size={22} className="absolute -right-2 -top-8 animate-wiggle text-accent" aria-hidden="true" />
-      </div>
+      </Float>
     </div>
   )
 }
